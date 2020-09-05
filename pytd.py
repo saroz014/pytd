@@ -39,7 +39,11 @@ class YTD:
         self.pbar.close()
 
     def download_playlist(self):
-        playlist = Playlist(self.url)
+        try:
+            playlist = Playlist(self.url)
+        except KeyError:
+            print('Not a playlist link!!!')
+            return
         playlist._video_regex = re.compile(r"\"url\":\"(/watch\?v=[\w-]*)")
         # print(len(playlist.video_urls))
         for url in playlist:
